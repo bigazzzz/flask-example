@@ -1,15 +1,17 @@
 from kubernetes import config, client
-from flask import Flask
+from flask import Flask, make_response
 from flask_restful import Api, Resource, reqparse
+
 import json
 import os
-    
+
+
 class Stand(Resource):
     def get(self):
         if os.getenv('STAND') is None:
             return "Not defined", 404
         else:
-            return os.getenv('STAND'), 200
+            return {'stand': os.getenv('STAND')}, 200
 
 class Pods(Resource):
     def get(self, podname):
