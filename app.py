@@ -9,9 +9,12 @@ import os
 class Stand(Resource):
     def get(self):
         if os.getenv('STAND') is None:
-            return "Not defined", 404
+            return send_error("not defined")
         else:
             return {'stand': os.getenv('STAND')}, 200
+
+def send_error(error_title=""):
+    return {'error': error_title}, 404
 
 class Pods(Resource):
     def get(self, podname):
